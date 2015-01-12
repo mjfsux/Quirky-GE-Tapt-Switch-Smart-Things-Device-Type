@@ -1,9 +1,10 @@
 /**
   *  Custom Device type for Quirky GE Tapt
   *
-  *  Initial Release 1/11/2015
+  *  Author Matt Frank using code from JohnR / John Rucker's Dual Relay Controller
   *
-  *  Copyright 2014 Matt Frank using code from JohnR / John Rucker's Dual Relay Controller
+  *  Date Created: 1/11/2015
+  *  Last Modified: 1/11/2015
   *
   *  Licensed under the Apache License, Version 2.0 (the "License"); you may not use this file except
   *  in compliance with the License. You may obtain a copy of the License at:
@@ -16,18 +17,15 @@
   *
   */
  metadata {
-   definition (name: "GE Tapt", namespace: "Matt Frank", author: "Matt Frank") {
+   definition (name: "Quirky GE Tapt Switch", namespace: "mattjfrank", author: "Matt Frank") {
          capability "Refresh"
          capability "Polling"
          capability "Sensor"
          capability "Configuration"
          capability "Switch"
 
+      fingerprint profileId: "0104", inClusters: "0000,0003,FC20", outClusters: "0019"
 
-
-
-       //fingerprint profileId: "0104", inClusters: "0000", outClusters: "000D,0006"
-         fingerprint inClusters: "0000 0001 0003 0004 0005 0006", endpointId: "01", deviceId: "0100", profileId: "0104"
 
    }
 
@@ -69,7 +67,6 @@
            name = "switch"
              value = "on"}
      }
-
    def result = createEvent(name: name, value: value)
      log.debug "Parse returned ${result?.descriptionText}"
      return result
