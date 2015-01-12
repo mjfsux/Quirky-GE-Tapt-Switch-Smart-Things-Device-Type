@@ -38,9 +38,9 @@
 
 
 
-     standardTile("switch", "device.switch2", width: 2, height: 2, canChangeIcon: true) {
-       state "off", label: '${name}', action: "Switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff"
-       state "on", label: '${name}', action: "Switch.off", icon: "st.switches.switch.on", backgroundColor: "#79b821"
+     standardTile("switch", "device.switch", width: 2, height: 2, canChangeIcon: true) {
+       state "off", label: '${name}', action: "switch.on", icon: "st.switches.switch.off", backgroundColor: "#ffffff"
+       state "on", label: '${name}', action: "switch.off", icon: "st.switches.switch.on", backgroundColor: "#79b821"
      }
 
          standardTile("refresh", "device.refresh", inactiveLabel: false, decoration: "flat") {
@@ -98,7 +98,7 @@
 
 
 
-     cmd << "st rattr 0x${device.deviceNetworkId} 0x01 0x0006 0x0000"	//  on / off value
+     cmd << "st rattr 0x${device.deviceNetworkId} 0x02 0x0006 0x0000"	//  on / off value
 
      cmd
  }
