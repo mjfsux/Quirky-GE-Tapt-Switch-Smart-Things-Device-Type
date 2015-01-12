@@ -60,10 +60,10 @@
 
       if (description?.startsWith("catchall: 0104 0006 02")) {
          log.debug "On/Off command received"
-         if (description?.endsWith(" 01 0140 00 38A8 00 00 0000 01 01 0000001000")){
+         if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 01 01 0000001000")){
            name = "switch"
              value = "off"}
-         else if (description?.endsWith(" 01 0140 00 38A8 00 00 0000 01 01 0000001001")){
+         else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 01 01 0000001001")){
            name = "switch"
              value = "on"}
      }
@@ -95,8 +95,6 @@
  def refresh() {
    log.debug "sending refresh command"
      def cmd = []
-
-
 
      cmd << "st rattr 0x${device.deviceNetworkId} 0x02 0x0006 0x0000"	//  on / off value
 
