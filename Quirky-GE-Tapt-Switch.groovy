@@ -16,6 +16,7 @@
   *  for the specific language governing permissions and limitations under the License.
   *
   */
+
  metadata {
    definition (name: "Quirky GE Tapt Switch", namespace: "mattjfrank", author: "Matt Frank") {
          capability "Refresh"
@@ -58,11 +59,32 @@
      def name = null
      def value = null
 
+//     if (description?.startsWith("catchall: 0104 0006 01")) {
+//        log.debug "On/Off command received"
+//        if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 0B 01 0081")){
+//          name = "switch"
+//            value = "off"}
+//
+//        else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 0B 01 0181")){
+//          name = "switch"
+//            value = "on"}
+//
+//    }
+
       if (description?.startsWith("catchall: 0104 0006 02")) {
          log.debug "On/Off command received"
-         if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 01 01 0000001000")){
+         if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 0B 01 0000")){
            name = "switch"
              value = "off"}
+
+        else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 01 01 0000001000")){
+          name = "switch"
+            value = "off"}
+
+         else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 0B 01 0100")){
+           name = "switch"
+             value = "on"}
+
          else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 01 01 0000001001")){
            name = "switch"
              value = "on"}
@@ -96,6 +118,7 @@
    log.debug "sending refresh command"
      def cmd = []
 
+//     cmd << "st rattr 0x${device.deviceNetworkId} 0x01 0x0006 0x0000"	//  not even sure what endpoint 1 is
      cmd << "st rattr 0x${device.deviceNetworkId} 0x02 0x0006 0x0000"	//  on / off value
 
      cmd
@@ -104,9 +127,11 @@
 
 
  def configure() {
-   log.debug "Binding SEP  0x02 "
+   log.debug "Binding SEP  0x02  Binding SEP 0x01"
      def cmd = []
      cmd << "delay 150"
+//     cmd << "zdo bind 0x${device.deviceNetworkId} 0x01 0x01 0x0006 {${device.zigbeeId}} {}"
      cmd << "zdo bind 0x${device.deviceNetworkId} 0x02 0x01 0x0006 {${device.zigbeeId}} {}"
+
      cmd
  }
