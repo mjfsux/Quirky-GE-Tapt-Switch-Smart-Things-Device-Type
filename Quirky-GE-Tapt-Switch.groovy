@@ -73,19 +73,19 @@
 
       if (description?.startsWith("catchall: 0104 0006 02")) {
          log.debug "On/Off command received"
-         if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 0B 01 0000")){
+         if (description ==~ /.*01 0000 00 \w{4} 00 00 0000 0B 01 0000/){
            name = "switch"
              value = "off"}
 
-        else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 01 01 0000001000")){
+        else if (description ==~ /.*01 0000 00 \w{4} 00 00 0000 01 01 0000001000/){
           name = "switch"
             value = "off"}
 
-         else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 0B 01 0100")){
+         else if (description ==~ /.*01 0000 00 \w{4} 00 00 0000 0B 01 0100/){
            name = "switch"
              value = "on"}
 
-         else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 01 01 0000001001")){
+         else if (description ==~ /.*01 0000 00 \w{4} 00 00 0000 01 01 0000001001/){
            name = "switch"
              value = "on"}
      }
