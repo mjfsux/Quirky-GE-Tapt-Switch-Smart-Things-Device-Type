@@ -71,21 +71,21 @@
 //
 //    }
 
-      if (description?.startsWith("catchall: 0104 0006 02")) {
+      if (description?.startsWith("catchall: 0104 0006")) {
          log.debug "On/Off command received"
-         if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 0B 01 0000")){
+         if (description?.endsWith("0000")){
            name = "switch"
              value = "off"}
 
-        else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 01 01 0000001000")){
+        else if (description?.endsWith("1000")){
           name = "switch"
             value = "off"}
 
-         else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 0B 01 0100")){
+         else if (description?.endsWith("0100")){
            name = "switch"
              value = "on"}
 
-         else if (description?.endsWith(" 01 0000 00 4F86 00 00 0000 01 01 0000001001")){
+         else if (description?.endsWith("1001")){
            name = "switch"
              value = "on"}
      }
@@ -117,7 +117,6 @@
  def refresh() {
    log.debug "sending refresh command"
      def cmd = []
-
 //     cmd << "st rattr 0x${device.deviceNetworkId} 0x01 0x0006 0x0000"	//  not even sure what endpoint 1 is
      cmd << "st rattr 0x${device.deviceNetworkId} 0x02 0x0006 0x0000"	//  on / off value
 
@@ -129,7 +128,7 @@
  def configure() {
    log.debug "Binding SEP  0x02  Binding SEP 0x01"
      def cmd = []
-     cmd << "delay 150"
+     cmd << zigbee.configSetup("6","0","0x10","0","60","{}"), "delay 1000",
 //     cmd << "zdo bind 0x${device.deviceNetworkId} 0x01 0x01 0x0006 {${device.zigbeeId}} {}"
      cmd << "zdo bind 0x${device.deviceNetworkId} 0x02 0x01 0x0006 {${device.zigbeeId}} {}"
 
